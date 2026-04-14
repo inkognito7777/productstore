@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: product-store
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product_store?currentSchema=product_store
+    username: mac
+    password: password
+    driver-class-name: org.postgresql.Driver

@@ -1,8 +1,8 @@
 package com.productstore.service;
 
-import org.springframework.stereotype.Service;
+import com.productstore.entity.ProductEntity;
 
-@Service
+public interface ProductService {
 
-public class ProductService {
+    ProductEntity getProductById(Long id);
 }
