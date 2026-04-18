@@ -1,13 +1,13 @@
 package com.productstore.controller;
 
-import com.productstore.entity.ProductEntity;
+import com.productstore.dto.CreateProductRequest;
+import com.productstore.dto.ProductResponse;
 import com.productstore.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -17,8 +17,38 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductEntity> getProduct(@PathVariable Long id) {
-        ProductEntity product = productService.getProductById(id);
-        return ResponseEntity.ok(product);
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ProductResponse> createProduct(
+            @RequestBody CreateProductRequest request
+    ) {
+        return ResponseEntity.ok(productService.createProduct(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        productService.deleteProductById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProduct(
+            @PathVariable Long id,
+            @RequestBody CreateProductRequest request
+    ) {
+        return ResponseEntity.ok(productService.updateProduct(id, request));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> getProductsByName(@RequestParam String name) {
+        return ResponseEntity.ok(productService.getProductsByName(name));
     }
 }
