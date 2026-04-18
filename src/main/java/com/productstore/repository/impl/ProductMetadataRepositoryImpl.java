@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class ProductMetadataRepositoryImpl implements ProductMetadataRepository {
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Optional<ProductMetadataEntity> findMetadataByProductId(Long productId) {

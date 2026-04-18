@@ -27,6 +27,7 @@ public class ProductMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .firm(metadataEntity.getFirm())
+                .description(metadataEntity.getDescription())
                 .build();
     }
 }

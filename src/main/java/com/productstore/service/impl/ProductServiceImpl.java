@@ -1,9 +1,11 @@
 package com.productstore.service.impl;
 
-import com.productstore.dto.CreateProductRequest;
 import com.productstore.ProductMapper;
+import com.productstore.dto.CreateProductRequest;
 import com.productstore.dto.ProductResponse;
 import com.productstore.entity.ProductEntity;
+import com.productstore.entity.ProductMetadataEntity;
+import com.productstore.repository.ProductMetadataRepository;
 import com.productstore.repository.ProductRepository;
 import com.productstore.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +24,16 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
-
+    private final ProductMetadataRepository productMetadataRepository;
 
     @Override
     public ProductResponse getProductById(Long id) {
-        ProductEntity entity = productRepository.findProductById(id)
-                .orElseThrow(() -> new RuntimeException("Не найден"));
+        ProductEntity product = productRepository.findProductById(id)
+                .orElseThrow(() -> new RuntimeException("Не найден продукт: %d".formatted(id)));
+        ProductMetadataEntity metaData = productMetadataRepository.findMetadataByProductId(id)
+                .orElseThrow(() -> new RuntimeException("Метадата не найдена для продукта: %d".formatted(id)));
 
-        return productMapper.toResponse(entity);
+        return productMapper.toResponse(product, metaData);
 
     }
 
