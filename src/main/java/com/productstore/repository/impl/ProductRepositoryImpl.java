@@ -19,7 +19,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<ProductEntity> findProductById(Long id) {
         String sql = "SELECT * FROM product_store.products WHERE id = ?";
-        return Optional.of(jdbcTemplate.queryForObject(
+        return Optional.ofNullable(jdbcTemplate.queryForObject(
                 sql,
                 getProductEntityRowMapper(),
                 id
