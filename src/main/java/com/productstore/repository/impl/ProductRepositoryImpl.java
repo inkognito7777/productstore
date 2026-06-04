@@ -28,17 +28,22 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<ProductEntity> findAllProducts() {
-        String sql = "SELECT* FROM product_store.products";
+        String sql = "SELECT* FROM product_store.products ORDER BY id";
         return jdbcTemplate.query(
                 sql,
                 getProductEntityRowMapper());
     }
 
     @Override
-    public void save(ProductEntity product) {
-        String sql = "INSERT INTO product_store.products (name) VALUES (?)";
-        jdbcTemplate.update(sql,
-                product.getName());
+    public Long save(ProductEntity product) {
+
+        String sql = "INSERT INTO product_store.products (name) VALUES (?) RETURNING id";
+
+        Long id = jdbcTemplate.queryForObject(sql, Long.class, product.getName());
+
+        product.setId(id);
+
+        return id;
     }
 
     @Override

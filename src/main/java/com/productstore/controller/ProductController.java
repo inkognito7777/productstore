@@ -1,8 +1,10 @@
 package com.productstore.controller;
 
 import com.productstore.dto.CreateProductRequest;
+import com.productstore.dto.CreateProductWithMetadataRequest;
 import com.productstore.dto.ProductResponse;
 import com.productstore.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +52,14 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<List<ProductResponse>> getProductsByName(@RequestParam String name) {
         return ResponseEntity.ok(productService.getProductsByName(name));
+    }
+
+    @PostMapping("/create-full")
+    public ResponseEntity<ProductResponse> createFull(@Valid
+                                                      @RequestBody CreateProductWithMetadataRequest request) {
+
+        return ResponseEntity.ok(
+                productService.createProductWithMetadata(request)
+        );
     }
 }

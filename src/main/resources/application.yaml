@@ -9,3 +9,8 @@ spring:
     username: mac
     password: password
     driver-class-name: org.postgresql.Driver
+
+telegram:
+  bot:
+    token: 8434445879:AAEpufFtNLzrZul2-koPKuA_xYGJ1cgnFZc
+    username: TlyarataStore_bot
