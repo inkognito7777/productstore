@@ -42,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
 
     public List<ProductResponse> getAllProducts() {
-
         List<ProductEntity> products = productRepository.findAllProducts();
 
         List<Long> ids = products.stream()

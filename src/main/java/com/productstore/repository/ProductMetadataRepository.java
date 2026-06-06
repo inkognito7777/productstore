@@ -11,5 +11,5 @@ public interface ProductMetadataRepository {
 
     List<ProductMetadataEntity> findMetadataByProductIds(List<Long> ids);
 
-    void save(ProductMetadataEntity entity);
+    Long save(ProductMetadataEntity entity);
 }
